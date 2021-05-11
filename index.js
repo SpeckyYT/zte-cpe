@@ -3,6 +3,8 @@ const url = require('url');
 
 const util = require('./src/util');
 
+const DEFAULT_COMMENT = 'a';
+
 class ZTECPE {
     constructor(hostname = '192.168.1.1'){
         this.address = hostname;
@@ -76,15 +78,6 @@ class ZTECPE {
     }
     logout(){
         return this.goformSet('LOGOUT');
-    }
-    changePassword(oldPassword, newPassword){
-        return this.goformSet(
-            'CHANGE_PASSWORD',
-            {
-                newPassword: util.stringToBase64(newPassword),
-                oldPassword: util.stringToBase64(oldPassword),
-            }
-        )
     }
     isLogged(){
         return this.goformGetSingleData('loginfo')
@@ -221,6 +214,135 @@ class ZTECPE {
             'wifi_hostname_black_list',
             'RadioOff','user_ip_addr',
         ])
+    }
+
+    // SETTINGS RELATED
+    // - DEVICE SECTION
+    // - - ACCOUNT MANAGEMENT SUBSECTION
+    changePassword(oldPassword, newPassword){
+        return this.goformSet(
+            'CHANGE_PASSWORD',
+            {
+                newPassword: util.stringToBase64(newPassword),
+                oldPassword: util.stringToBase64(oldPassword),
+            }
+        )
+    }
+    // - - DLNA SUBSECTION
+    setDLNA(name,audio,video,image){
+        return this.goformSet(
+            'DLNA_SETTINGS',
+            {
+                dlna_language: 'english',
+                dlna_name: name || 'ZTE_DLNA',
+                dlna_share_audio: audio ? 'on' : 'off',
+                dlna_share_video: video ? 'on' : 'off',
+                dlna_share_image: image ? 'on' : 'off',
+            }
+        )
+    }
+    // - FIREWALL SECTION
+    // - - PORT FILTERING SUBSECTION
+    enablePortFiltering(enable, defaultPolicy){
+        return this.goformSet(
+            'BASIC_SETTING',
+            {
+                portFilterEnabled: Number(enable || 0),
+                defaultFirewallPolicy: Number(defaultPolicy || 0),
+            }
+        )
+    }
+    addIPPortFilter(ipversion = 'ipv4', protocol = 'None'){
+        return this.goformSet(
+            'ADD_IP_PORT_FILETER_V4V6',
+            {
+                ip_version: ipversion,
+                mac_address: '',
+                dip_address: '',
+                sip_address: '',
+                dFromPort: 1,
+                dToPort: 65535,
+                sFromPort: 1,
+                sToPort: 65535,
+                action: Drop,
+                protocol: protocol,
+                comment: DEFAULT_COMMENT,
+            }
+        )
+    }
+    deleteIPPortFilter(id = '', idv6 = ''){
+        return this.goformSet(
+            'DEL_IP_PORT_FILETER_V4V6',
+            {
+                delete_id: Array.isArray(id) ? id.join(';') : id,
+                delete_id_v6: Array.isArray(idv6) ? idv6.join(';') : idv6,
+            }
+        )
+    }
+    // - - PORT FORWARDING SUBSECTION
+    enablePortForwarding(enable){
+        return this.goformSet(
+            'VIRTUAL_SERVER',
+            {
+                PortForwardEnable: Number(enable || 0),
+            }
+        )
+    }
+    addPortForward(address,portStart,portEnd,protocol = 'None'){
+        return this.goformSet(
+            'FW_FORWARD_ADD',
+            {
+                ipAddress: address,
+                portStart: portStart,
+                portEnd: portEnd,
+                protocol: protocol,
+                comment: DEFAULT_COMMENT,
+            }
+        )
+    }
+    deletePortForward(id){
+        return this.goformSet(
+            'FW_FORWARD_DEL',
+            {
+                delete_id: Array.isArray(id) ? id.join(';') : id,
+            }
+        )
+    }
+    // - - URL FILTERING SUBSECTION
+    addURLFilter(url){
+        return this.goformSet(
+            'URL_FILTER_ADD',
+            {
+                addURLFilter: url,
+            }
+        )
+    }
+    deleteURLFilter(id){
+        return this.goformSet(
+            'URL_FILTER_DELETE',
+            {
+                url_filter_delete_id: Array.isArray(id) ? id.join(';') : id,
+            }
+        )
+    }
+    // - - UPNP SUBSECTION
+    enableUPnP(enable){
+        return this.goformSet(
+            'UPNP_SETTING',
+            {
+                upnp_setting_option: Number(enable || 0),
+            }
+        )
+    }
+    // - - DMZ SUBSECTION
+    enableDMZ(enable,ip){
+        return this.goformSet(
+            'DMZ_SETTING',
+            {
+                DMZEnabled: Number(enable || 0),
+                DMZIPAddress: ip,
+            }
+        )
     }
 }
 

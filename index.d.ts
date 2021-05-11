@@ -19,6 +19,9 @@ type phone = {
     pbm_sne:string
     pbm_group:string
 }
+type FW_PROTOCOL = 'TCP' | 'UDP' | 'TCP&UDP'
+type PF_PROTOCOL = 'None' | 'TCP' | 'UDP' | 'ICMP'
+type IPVERSION = 'ipv4' | 'ipv6'
 
 type util = {
     contentToString(content:string):string
@@ -42,12 +45,11 @@ export = class ZTECPE {
 
     login(password:string):Promise<any>
     logout():Promise<result>
-    changePassword(oldPassword:string,newPassword:string):Promise<result>
     isLogged():Promise<boolean>
 
     getSMS(page?:number,smsPerPage?:number):Promise<any>
     sendSMS(number:string,content:string):Promise<result>
-    deleteSMS(sms:Array<string>|string):Promise<result>
+    deleteSMS(id:Array<number>|number):Promise<result>
 
     connect():Promise<result>
     disconnect():Promise<result>
@@ -59,4 +61,17 @@ export = class ZTECPE {
     getPhonebook():Promise<phone>
     getSMSData():Promise<any>
     getWifiData():Promise<any>
+
+    changePassword(oldPassword:string,newPassword:string):Promise<result>
+    setDLNA(name:string,audio:boolean,video:boolean,image:boolean):Promise<result>
+    enablePortFiltering(enable:boolean,defaultPolicy:boolean):Promise<result>
+    addIPPortFilter(ipversion:IPVERSION,protocol:PF_PROTOCOL):Promise<result>
+    deleteIPPortFilter(id:number,idv6:string):Promise<result>
+    enablePortForwarding(enable:boolean):Promise<result>
+    addPortForward(address:string,portStart:number,portEnd:number,protocol:FW_PROTOCOL):Promise<result>
+    deletePortForward(id:Array<number>|number):Promise<result>
+    addURLFilter(url:string):Promise<result>
+    deleteURLFilter(id:Array<number>|number):Promise<result>
+    enableUPnP(enable:boolean):Promise<result>
+    enableDMZ(enable:boolean,ip:string):Promise<result>
 }
