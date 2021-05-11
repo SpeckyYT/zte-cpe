@@ -1,0 +1,31 @@
+{
+  "name": "zte-cpe",
+  "version": "0.0.0",
+  "description": "ZTE-CPE ROUTER/MODEM API",
+  "main": "index.js",
+  "typings": "index.d.ts",
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SpeckyYT/zte-cpe.git"
+  },
+  "keywords": [
+    "zte",
+    "cpe",
+    "modem",
+    "router",
+    "api"
+  ],
+  "author": "SpeckyYT",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/SpeckyYT/zte-cpe/issues"
+  },
+  "homepage": "https://github.com/SpeckyYT/zte-cpe#readme"
+}
