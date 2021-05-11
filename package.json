@@ -1,6 +1,6 @@
 {
   "name": "zte-cpe",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "ZTE-CPE ROUTER/MODEM API",
   "main": "index.js",
   "typings": "index.d.ts",
