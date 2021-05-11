@@ -20,8 +20,20 @@ type phone = {
     pbm_group:string
 }
 
+type util = {
+    contentToString(content:string):string
+    stringToContent(string:string):string
+    stringToBase64(string:string):string
+    base64ToString(base64:string):string
+    timeToDate(time:string):Date
+    dateToTime(date:Date):string
+}
+
 export = class ZTECPE {
     constructor(ipAddress?:string)
+
+    util:util
+    address:string
 
     goformSet(endpoint:string,content:object)
     goformGet(content:object)
