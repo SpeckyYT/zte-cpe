@@ -66,7 +66,7 @@ export = class ZTECPE {
     getDeviceInfo():Promise<any>
     getData():Promise<any>
     getLogData():Promise<any>
-    getPhonebook():Promise<phone>
+    getPhonebook():Promise<Array<phone>>
     getSMSData():Promise<any>
     getWifiData():Promise<any>
 
