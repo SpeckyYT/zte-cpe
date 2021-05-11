@@ -19,6 +19,14 @@ type phone = {
     pbm_sne:string
     pbm_group:string
 }
+type sms = {
+    id:string,
+    number:string,
+    content:string,
+    tag:string,
+    date:Date,
+    draft_group_id:string
+}
 type FW_PROTOCOL = 'TCP' | 'UDP' | 'TCP&UDP'
 type PF_PROTOCOL = 'None' | 'TCP' | 'UDP' | 'ICMP'
 type IPVERSION = 'ipv4' | 'ipv6'
@@ -47,7 +55,7 @@ export = class ZTECPE {
     logout():Promise<result>
     isLogged():Promise<boolean>
 
-    getSMS(page?:number,smsPerPage?:number):Promise<any>
+    getSMS(page?:number,smsPerPage?:number):Promise<Array<sms>>
     sendSMS(number:string,content:string):Promise<result>
     deleteSMS(id:Array<number>|number):Promise<result>
 
