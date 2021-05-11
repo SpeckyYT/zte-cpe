@@ -16,11 +16,11 @@ console.log(parsedSMS);
 
 ## Notes
 
-- every function related to the router/modem connection is async
-- some features require to login to be functional
-  - you can check if you're logged or not using `.isLogged()`
-- if an API error occurres, the returned object is `{ error: true }`
-- since there are lots of methods, check out the typings
+- Every function related to the router/modem connection is async
+- Some features require to login to be functional
+  - You can check if you're logged or not using `.isLogged()`
+- If an API error occurres, the returned object is `{ error: true }`
+- Since there are lots of methods, check out the typings
 - I'm not fully sure if this is compatible with other ZTE-CPE router/modems
 
 ## Tested on
