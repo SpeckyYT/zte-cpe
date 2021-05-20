@@ -1,11 +1,16 @@
 module.exports = {
     contentToString(content){
-        return Buffer.from(content,'hex').filter(n=>n).toString('utf-8');
+        const matches = content.match(/([0-9a-f]{1,4})/gi) || [];
+        let string = '';
+        for(const match of matches)
+            string += eval(`"\\u${match.padStart(4, '0')}"`);
+        return string;
     },
     stringToContent(string){
-        const content = [];
-        for(const byte of Buffer.from(string,'utf-8')) content.push(0,byte);
-        return Buffer.from(content).toString('hex');
+        let content = '';
+        for(let i = 0; i < string.length; i++)
+            content += string.codePointAt(i).toString(16).padStart(4, '0');
+        return content.toUpperCase();
     },
     stringToBase64(string){
         return Buffer.from(string,'utf-8').toString('base64');
