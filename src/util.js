@@ -3,7 +3,7 @@ module.exports = {
         const matches = content.match(/([0-9a-f]{1,4})/gi) || [];
         let string = '';
         for(const match of matches)
-            string += eval(`"\\u${match.padStart(4, '0')}"`);
+            string += String.fromCharCode(parseInt(match,16));
         return string;
     },
     stringToContent(string = ''){
