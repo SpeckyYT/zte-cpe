@@ -114,7 +114,7 @@ class ZTECPE {
                 sms_time: util.dateToTime(new Date(), ';'),
                 MessageBody: util.stringToContent(content),
                 ID: -1,
-                encode_type: 'GSM7_default',
+                encode_type: 'UNICODE',
             }
         )
     }
