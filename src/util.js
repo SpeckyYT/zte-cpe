@@ -24,12 +24,12 @@ module.exports = {
             hour, minute, second,
             tz,         // not sure what this one is
         ] = time.split(separator).map(data => parseInt(data));
-        return new Date(2000+year,month,day,hour,minute,second);
+        return new Date(2000+year,month-1,day,hour,minute,second);
     },
     dateToTime(date = new Date(), separator = ','){
         return [
             date.getFullYear() - 2000,
-            date.getMonth(),
+            date.getMonth()+1,
             date.getDay(),
             date.getHours(),
             date.getMinutes(),
